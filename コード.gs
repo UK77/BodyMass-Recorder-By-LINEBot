@@ -31,6 +31,7 @@ function doPost(e){
     let thisColumn = filledColumn + 1;
     sheet.getRange(3, thisColumn).setValue(userId);
     text = "体重を数値だけで入力してください（例：72.5）";
+    setDisplayName(thisColumn, userId);
   }//通常体重入力時の処理
   else if(eventType == 'message'){ 
     let userMessage = data.message.text;
@@ -93,4 +94,20 @@ function doPost(e){
       });
   
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
+};
+
+
+function setDisplayName(column, userId){
+  let profileRequestUrl  = "https://api.line.me/v2/bot/profile/" + userId;
+  let responce = UrlFetchApp.fetch(profileRequestUrl, {
+        'headers': {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + ACCESS_TOKEN,
+        },
+        'method': 'get'
+      });
+  responce = JSON.parse(responce);
+  const displayName = responce.displayName;
+  const displayNameCell = sheet.getRange(2, column).setValue(displayName);
+  return 
 };
