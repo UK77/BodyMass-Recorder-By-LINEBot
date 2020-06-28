@@ -111,3 +111,29 @@ function setDisplayName(column, userId){
   const displayNameCell = sheet.getRange(2, column).setValue(displayName);
   return 
 };
+
+function mentionEmptyPlayers(){
+  const url = "https://api.line.me/v2/bot/message/multicast";
+  let userIds = checkPreviousDayCell();
+  
+  //送信するbody
+  let payload = {
+    "to": userIds,
+    "messages":[
+        {
+            "type":"text",
+            "text":"昨日の体重が記入漏れでした\n(入れてたら上井にLINEして)\n今日は体重を入力しましょう"
+        }
+    ]
+  };
+  payload = JSON.stringify(payload);
+  
+  UrlFetchApp.fetch(url, {
+        'headers': {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + ACCESS_TOKEN,
+        },
+        'method': 'post',
+        'payload': payload
+      });
+};
