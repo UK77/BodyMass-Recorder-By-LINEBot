@@ -1,7 +1,8 @@
-const ACCESS_TOKEN = "L/WbcRjdNs2bRpWGvgVSFae7kcpTw4vrtxtP9rBxWYgMZi7XQ9cxj9+gQYFREIP5DAWjldJCMQjR/wAtQvGKNPDZg+jO5Bs49eY3eJdyM17RVV3xIjXQKBodkOuiSiiE/z7nxMUlYQnHXRahGfM/LAdB04t89/1O/w1cDnyilFU=";
-const spreadsheet = SpreadsheetApp.openById("1QYgIgRqD3vzJGyAZqm-wosCbM40gShRsZ_RLE3kuZ5M");
+const ACCESS_TOKEN = PropertiesService.getScriptProperties().getProperty("ACCESS_TOKEN");
+const SPREADSHEET_ID = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_ID");
+const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
 const sheet = spreadsheet.getSheetByName("体重管理");
-const ssUrl = "https://docs.google.com/spreadsheets/d/1QYgIgRqD3vzJGyAZqm-wosCbM40gShRsZ_RLE3kuZ5M/edit#gid=0";
+const SPREADSHEET_URL = PropertiesService.getScriptProperties().getProperty("SPREADSHEET_URL");
 
 let lastRow = sheet.getLastRow();
 let lastColumn = sheet.getLastColumn();
@@ -39,7 +40,7 @@ function doPost(e){
     if (userMessage == "今日の体重"){
       text = "数値を入力してください";
     }else if (userMessage == "過去のデータを修正・追加する"){
-      text = "下記URLから修正してください\n" + ssUrl;
+      text = "下記URLから修正してください\n" + SPREADSHEET_URL;
     }else if (parseInt(userMessage, 10) || parseFloat(userMessage)){
       for (let i = 1; i <= lastColumn; i++){
         let cell = sheet.getRange(3, i);
