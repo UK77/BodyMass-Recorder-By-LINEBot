@@ -3,3 +3,7 @@
 友達登録時にIDと表示名を取得。
 利用者のメッセージを分岐させて、記録を行なったり過去データの参照を可能にしています。
 
+## 使用技術
+GoogleAppsScript
+GoogleSheet API
+LINE Messaging API
