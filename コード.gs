@@ -112,6 +112,22 @@ function setDisplayName(column, userId){
   return 
 };
 
+
+function checkPreviousDayCell(){
+  let yesterdayDatas = sheet.getRange(lastRow-1, 2, 1, lastColumn-2).getValues();
+  yesterdayDatas = yesterdayDatas[0];
+  let userIds = [];
+    
+  for (let [index, data] of yesterdayDatas.entries()){
+    if (data == ""){
+      userIds.push(sheet.getRange(3, index+2).getValues()[0][0]);
+    };
+  };
+  return userIds
+};
+
+
+
 function mentionEmptyPlayers(){
   const url = "https://api.line.me/v2/bot/message/multicast";
   let userIds = checkPreviousDayCell();
