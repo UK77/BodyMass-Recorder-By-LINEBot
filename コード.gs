@@ -139,7 +139,7 @@ function mentionEmptyPlayers(){
     "messages":[
         {
             "type":"text",
-            "text":"昨日の体重が記入漏れでした\n(入れてたら上井にLINEして)\n今日は体重を入力しましょう"
+            "text":"今日の体重が未記入です\n忘れないうちにk記録しましょう"
         }
     ]
   };
