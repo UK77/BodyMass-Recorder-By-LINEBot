@@ -6,7 +6,7 @@ const SPREADSHEET_URL = PropertiesService.getScriptProperties().getProperty("SPR
 
 let lastRow = sheet.getLastRow();
 let lastColumn = sheet.getLastColumn();
-    
+
 function setDate(){
   let today = new Date();
   today = Utilities.formatDate(today, "JST", "yyyy/MM/dd");
@@ -114,12 +114,12 @@ function setDisplayName(column, userId){
 };
 
 
-function checkPreviousDayCell(){
-  let yesterdayDatas = sheet.getRange(lastRow-1, 2, 1, lastColumn-2).getValues();
-  yesterdayDatas = yesterdayDatas[0];
+function checkDatasOfToday(){
+  let DatasOfToday = sheet.getRange(lastRow, 2, 1, lastColumn-2).getValues();
+  DatasOfToday = DatasOfToday[0];
   let userIds = [];
     
-  for (let [index, data] of yesterdayDatas.entries()){
+  for (let [index, data] of DatasOfToday.entries()){
     if (data == ""){
       userIds.push(sheet.getRange(3, index+2).getValues()[0][0]);
     };
@@ -131,7 +131,7 @@ function checkPreviousDayCell(){
 
 function mentionEmptyPlayers(){
   const url = "https://api.line.me/v2/bot/message/multicast";
-  let userIds = checkPreviousDayCell();
+  let userIds = checkDatasOfToday();
   
   //送信するbody
   let payload = {
